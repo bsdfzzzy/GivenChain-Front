@@ -2,6 +2,7 @@ var SimpleStorage = artifacts.require("./SimpleStorage.sol");
 var TutorialToken = artifacts.require("./TutorialToken.sol");
 var ComplexStorage = artifacts.require("./ComplexStorage.sol");
 var GivenToken = artifacts.require("./GivenToken.sol");
+var GivenFactory = artifacts.require("./GivenFactory.sol");
 var Given = artifacts.require("./Given.sol");
 var GivenFactory = artifacts.require("./GivenFactory.sol");
 
