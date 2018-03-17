@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { ContractData, ContractForm } from 'drizzle-react-components'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Slider from 'material-ui/Slider'
@@ -9,14 +8,14 @@ import PropTypes from 'prop-types'
 
 import { provinces, cities, hospitals } from '../../util/hospitals'
 
-import './apply.css'
+import './projects.css'
 
 const applySelectHospital = {
   "width": "30%",
   "marginRight": "5%"
 }
 
-class ApplyPage extends Component {
+class ProjectsPage extends Component {
 
   constructor(props, context) {
     super(props)
@@ -152,7 +151,7 @@ class ApplyPage extends Component {
 
   render() {
     return (
-      <main className="container">
+      <main className="projects-container">
         <h2>申请详情</h2>
         <TextField
           hintText="Hint Text"
@@ -210,8 +209,8 @@ class ApplyPage extends Component {
   }
 }
 
-ApplyPage.contextTypes = {
+ProjectsPage.contextTypes = {
   drizzle: PropTypes.object
 }
 
-export default ApplyPage
+export default ProjectsPage
