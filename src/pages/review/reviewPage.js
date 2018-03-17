@@ -8,8 +8,8 @@ import Divider from 'material-ui/Divider';
 class ReivewPage extends Component {
 
   render() {
-    var reviews = [1, 2];
-    var renderReviews = reviews.map(function (review, i) {
+    const reviews = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2];
+    const renderReviews = reviews.map(function (review, i) {
       return (
         <div key={i}>
         <CardHeader
@@ -30,7 +30,7 @@ class ReivewPage extends Component {
     });
     return (
       <div className="container">
-        <h3>请求审核</h3>
+        <h2>请求审核</h2>
         <Card>
           {renderReviews}
         </Card>
