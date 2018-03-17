@@ -12,4 +12,8 @@ contract GivenFactory {
     NewGiven(given);
     return given;
   }
+
+  function listContracts() public view returns(address[]) {
+      return contracts;
+  }
 }
