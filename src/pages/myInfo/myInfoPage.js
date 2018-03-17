@@ -1,5 +1,7 @@
 import React from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
 
 const styles = {
   headline: {
@@ -25,7 +27,23 @@ export default class MyInfo extends React.Component {
     });
   };
 
+  card(data, i) {
+    return (
+      <div key={i}>
+        <CardText expandable={true}>
+          I need to do something blablablablablabla.
+        </CardText>
+        <Divider/>
+      </div>
+    )
+  }
+
   render() {
+    const infos = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2];
+    const renderInfos = infos.map((info, i) => {
+      return this.card(info, i)
+    });
+
     return (
       <div className="container">
         <h2>个人中心</h2>
@@ -34,34 +52,19 @@ export default class MyInfo extends React.Component {
         onChange={this.handleChange}
       >
         <Tab label="申请" value="a">
-          <div>
-            <h2 style={styles.headline}>Controllable Tab A</h2>
-            <p>
-              Tabs are also controllable if you want to programmatically pass them their values.
-              This allows for more functionality in Tabs such as not
-              having any Tab selected or assigning them different values.
-            </p>
-          </div>
+          <Card>
+            {renderInfos}
+          </Card>
         </Tab>
         <Tab label="捐助" value="b">
-          <div>
-            <h2 style={styles.headline}>Controllable Tab B</h2>
-            <p>
-              This is another example of a controllable tab. Remember, if you
-              use controllable Tabs, you need to give all of your tabs values or else
-              you wont be able to select them.
-            </p>
-          </div>
+          <Card>
+            {renderInfos}
+          </Card>
         </Tab>
         <Tab label="审查" value="c">
-          <div>
-            <h2 style={styles.headline}>Controllable Tab B</h2>
-            <p>
-              This is another example of a controllable tab. Remember, if you
-              use controllable Tabs, you need to give all of your tabs values or else
-              you wont be able to select them.
-            </p>
-          </div>
+          <Card>
+            {renderInfos}
+          </Card>
         </Tab>
       </Tabs>
       </div>
