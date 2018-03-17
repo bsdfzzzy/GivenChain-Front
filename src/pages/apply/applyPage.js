@@ -30,14 +30,22 @@ class ApplyPage extends Component {
     this.handleChangeSelectCity = this.handleChangeSelectCity.bind(this)
     this.handleChangeSelectHospital = this.handleChangeSelectHospital.bind(this)
     this.submitApply = this.submitApply.bind(this)
+    this.handleChangeName = this.handleChangeName.bind(this)
+    this.handleChangeGentle = this.handleChangeGentle.bind(this)
+    this.handleChangePhone = this.handleChangePhone.bind(this)
+    this.handleChangeReason = this.handleChangeReason.bind(this)
 
     this.state = {
+      name: '',
+      phone: '',
+      gentle: '',
       applyMoneyNum: 30,
       selectHospital: {
         province: undefined,
         city: undefined,
         hospital: undefined
-      }
+      },
+      reason: ''
     }
   }
 
@@ -145,7 +153,36 @@ class ApplyPage extends Component {
     })
   }
 
+  handleChangeName(event, value) {
+    this.setState({
+      ...this.state,
+      name: value
+    })
+  }
+
+  handleChangePhone(event, value) {
+    this.setState({
+      ...this.state,
+      phone: value
+    })
+  }
+
+  handleChangeGentle(event, value) {
+    this.setState({
+      ...this.state,
+      gentle: value
+    })
+  }
+
+  handleChangeReason(event, value) {
+    this.setState({
+      ...this.state,
+      reason: value
+    })
+  }
+
   submitApply() {
+    console.log(this.contracts.Given)
     this.contracts.Given.methods.confirmed().send()
   }
 
@@ -154,22 +191,25 @@ class ApplyPage extends Component {
       <main className="container">
         <h2>申请详情</h2>
         <TextField
-          hintText="Hint Text"
           name="name"
           floatingLabelText="姓名"
           fullWidth={true}
+          value={this.state.name}
+          onChange={this.handleChangeName}
         /> <br />
         <TextField
-          hintText="Hint Text"
           name="mobile"
           floatingLabelText="联系电话"
           fullWidth={true}
+          value={this.state.phone}
+          onChange={this.handleChangePhone}
         /> <br />
         <TextField
-          hintText="Hint Text"
           name="gentle"
           floatingLabelText="性别"
           fullWidth={true}
+          value={this.state.gentle}
+          onChange={this.handleChangeGentle}
         /> <br /><br />
         <label className="apply-field-label">申请金额 {this.state.applyMoneyNum} 万元</label>
         <Slider
@@ -190,18 +230,18 @@ class ApplyPage extends Component {
         {this.createSelectCitiesMenus(this.state.selectHospital.province)}
         {this.createSelectHospitalsMenus(this.state.selectHospital.city)}
         <TextField
-          hintText="Hint Text"
           name="hehe"
           floatingLabelText="病例证明"
           fullWidth={true}
         /> <br />
         <TextField
-          hintText="Hint Text"
           name="reason"
           floatingLabelText="申请原因"
           fullWidth={true}
           rows={3}
           multiLine={true}
+          value={this.state.reason}
+          onChange={this.handleChangeReason}
         />
         <RaisedButton label="提交申请" primary={true} className="apply-submit-button" onClick={this.submitApply} />
       </main>

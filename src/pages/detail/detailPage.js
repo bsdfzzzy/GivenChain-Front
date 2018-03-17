@@ -8,30 +8,6 @@ import FlatButton from 'material-ui/FlatButton'
 
 import './detail.css'
 
-const styles = {
-  gridList: {
-    width: "100%",
-    overflowY: 'auto',
-  },
-  projectsListItem: {
-    height: '83%',
-    width: '230px',
-    margin: 20,
-    textAlign: 'center',
-    display: 'inline-block',
-    boxSizing: 'content-box',
-  },
-  projectListHeaderAvatar: {
-    float: 'left',
-    marginRight: '10px'
-  },
-  projectsListContentButton: {
-    position: 'absolute',
-    right: '35px',
-    bottom: '15px'
-  }
-}
-
 class DetailPage extends Component {
 
   constructor(props, context) {

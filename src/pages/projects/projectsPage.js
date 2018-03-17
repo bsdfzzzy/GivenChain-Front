@@ -74,9 +74,15 @@ class ProjectsPage extends Component {
 
     this.contracts = context.drizzle.contracts
 
+    this.routeToDetail = this.routeToDetail.bind(this)
+
     this.state = {
       projects: data
     }
+  }
+
+  routeToDetail(event) {
+    this.props.router.push('/detail')
   }
 
   render() {
@@ -111,7 +117,7 @@ class ProjectsPage extends Component {
                   {person.reason}
                 </p>
                 <FloatingActionButton mini={true} secondary={true} style={styles.projectsListContentButton}>
-                  <ContentSend />
+                  <ContentSend onClick={this.routeToDetail} />
                 </FloatingActionButton>
               </Paper>
             </GridTile>
