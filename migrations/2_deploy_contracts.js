@@ -9,5 +9,5 @@ module.exports = function(deployer) {
   deployer.deploy(TutorialToken);
   deployer.deploy(ComplexStorage);
   deployer.deploy(GivenToken);
-  deployer.deploy(Given, "hello", web3.eth.accounts[0], 10);
+  deployer.deploy(Given, "hello", web3.eth.accounts[0], 150);
 };

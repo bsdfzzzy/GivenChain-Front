@@ -9,7 +9,12 @@ contract Given {
     address public endorser;
     mapping (address => uint256) public participantBalances;
     State public state;
+    uint256 public totalBalance;
+  
+    event Crowdfund(address _from, uint256 _value);
+    event Money(uint256 _value);
 
+ 
     enum State { Unconfirmed, Confirmed }
 
     modifier onlyEndorser() {
@@ -37,7 +42,11 @@ contract Given {
         return state == State.Confirmed;
     }
 
-    function recordFunding(address _from, uint256 _value) public{
+    function recordFunding(address _from, uint256 _value) public {
+        require(totalBalance.add(_value) <= fundingAmount);
+        Crowdfund(_from, _value);
+        totalBalance = totalBalance.add(_value);
+
         participantBalances[_from] = participantBalances[_from].add(_value);
     }
 
