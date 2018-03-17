@@ -72,7 +72,8 @@ export default class MyInfo extends React.Component {
   }
 
   loadReviews() {
-    const promise = this.contracts.GivenFactory.listContracts().call()
+    // console.log(this.contracts.GivenFactory)
+    const promise = this.contracts.GivenFactory.methods.listContracts().call()
     promise.then(result => {
       console.log(result)
       const reviews = result.map((address, index) => {
@@ -88,7 +89,6 @@ export default class MyInfo extends React.Component {
     }).catch(err => {
       console.log(err)
     })
-
   }
 
   componentWillMount() {

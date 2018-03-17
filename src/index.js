@@ -19,9 +19,6 @@ import ProjectsContainer from './pages/projects'
 import DetailContainer from './pages/detail'
 
 // Contracts
-import ComplexStorage from './../build/contracts/ComplexStorage.json'
-import SimpleStorage from './../build/contracts/SimpleStorage.json'
-import TutorialToken from './../build/contracts/TutorialToken.json'
 import Given from './../build/contracts/Given.json'
 import GivenFactory from './../build/contracts/GivenFactory.json'
 import GivenToken from './../build/contracts/GivenToken.json'
@@ -42,16 +39,11 @@ const options = {
     }
   },
   contracts: [
-    ComplexStorage,
-    SimpleStorage,
-    TutorialToken,
     Given,
     GivenFactory,
     GivenToken
   ],
-  events: {
-    SimpleStorage: ['StorageSet']
-  }
+  events: {}
 }
 
 const muiTheme = getMuiTheme({

@@ -194,8 +194,24 @@ class ApplyPage extends Component {
     const ownerName = this.state.name
     const hospitalAddress = this.state.hospitalAddress
     const donateMount = this.state.applyMoneyNum * 10
-    const promise = this.contracts.GivenFactory.methods.newGiven(ownerName, hospitalAddress, donateMount).call()
+    const body = {
+      ownerName: this.state.name,
+      hospitalAddress: this.state.hospitalAddress,
+      donateMount: this.state.applyMoneyNum * 10000
+    }
+    const promise = this.contracts.GivenFactory.methods.newGiven(ownerName, hospitalAddress, donateMount).send()
+
+    fetch('http://localhost:8000/', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json)
+      })
+
     promise.then((result) => {
+      console.log(result)
       this.props.router.push('/detail?address=' + result)
     }).catch(err => {
       console.log(err)
