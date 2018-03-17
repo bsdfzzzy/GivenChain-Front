@@ -4,11 +4,15 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { DrizzleProvider } from 'drizzle-react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 // Layouts
 import App from './App'
 import HomeContainer from './layouts/home/HomeContainer'
 import LoadingContainer from './layouts/loading/LoadingContainer'
+
+// Pages
+import ApplyContainer from './pages/apply'
 
 // Contracts
 import ComplexStorage from './../build/contracts/ComplexStorage.json'
@@ -41,17 +45,20 @@ const options = {
 }
 
 ReactDOM.render((
-    <DrizzleProvider options={options}>
-      <Provider store={store}>
-        <LoadingContainer>
-          <Router history={history}>
-            <Route path="/" component={App}>
-              <IndexRoute component={HomeContainer} />
-            </Route>
-          </Router>
-        </LoadingContainer>
-      </Provider>
-    </DrizzleProvider>
+    <MuiThemeProvider>
+      <DrizzleProvider options={options}>
+        <Provider store={store}>
+          <LoadingContainer>
+            <Router history={history}>
+              <Route path="/" component={App}>
+                <IndexRoute component={HomeContainer} />
+                <Route path="apply" component={ApplyContainer} />
+              </Route>
+            </Router>
+          </LoadingContainer>
+        </Provider>
+      </DrizzleProvider>
+    </MuiThemeProvider>
   ),
   document.getElementById('root')
 );

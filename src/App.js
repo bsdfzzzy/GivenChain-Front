@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import AppBar from 'material-ui/AppBar'
 
 // Styles
 import './css/oswald.css'
@@ -10,6 +11,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <AppBar title="Given Chain" showMenuIconButton={false}/>
         {this.props.children}
       </div>
     );
