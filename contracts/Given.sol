@@ -68,7 +68,8 @@ contract Given {
         state = State.Approved;
     }
 
-    function withdraw(uint256 _value) onlyEndorser inState(State.Approved) public {
+    function withdraw(address _who, uint256 _value) inState(State.Approved) public {
+        require(_who == endorser);
         require(_value <= totalBalance);
         Withdraw(msg.sender, _value);
 

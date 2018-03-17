@@ -3,9 +3,9 @@ const Given = artifacts.require("./Given.sol")
 
 
 contract('Given Token', (accounts) => {
-    let crowdfund 
-    let endorser 
-    let richMan 
+    let crowdfund
+    let endorser
+    let richMan
     before(function() {
         crowdfund = accounts[0]
         endorser = accounts[1]
@@ -13,7 +13,7 @@ contract('Given Token', (accounts) => {
     })
 
     describe("Crowdfund", () => {
-        let givenToken 
+        let givenToken
         let given
         let owner = accounts[3]
 
@@ -24,7 +24,7 @@ contract('Given Token', (accounts) => {
         })
 
         it("should have initial tokens", async () => {
-            let balance = await givenToken.balanceOf(crowdfund) 
+            let balance = await givenToken.balanceOf(crowdfund)
 
             assert.equal(balance, 1000000000, "the initial tokens is not 1000000000")
         })
@@ -55,7 +55,7 @@ contract('Given Token', (accounts) => {
             // funding amout is 150 tokens here.
             await givenToken.crowdfund(151, given.address, {from: crowdfund})
             let totalBalance = await given.totalBalance()
-            
+
             assert.equal(totalBalance, 151, "total balance should be 151")
             let isCompleted = await given.state()
 
@@ -65,7 +65,7 @@ contract('Given Token', (accounts) => {
         it("should be able to withdraw token from given crowdfund after owner approve", async () => {
             await givenToken.crowdfund(150, given.address, {from: crowdfund})
             let totalBalance = await given.totalBalance()
-            
+
             assert.equal(totalBalance, 150, "total balance should be 100")
             await given.approved({from: owner})
 
@@ -73,15 +73,15 @@ contract('Given Token', (accounts) => {
 
             assert.equal(state, 3, "state should be in Approved")
 
-           // await givenToken.withdraw(100, given.address, {from: endorser})
+            await givenToken.withdraw(100, given.address, {from: endorser})
 
-           // totalBalance = await given.totalBalance()
-           // state = await given.state()
+            state = await given.state()
+            assert.equal(state, 2, "should back to Completed status")
 
-           // assert.equal(totalBalance, 50, "should remains 50 tokens")
-           // assert.equal(state, 2, "should back to Completed status")
+            totalBalance = await given.totalBalance()
+            assert.equal(totalBalance, 50, "should remains 50 tokens")
 
-           // await given.approved({from: owner})
+            await given.approved({from: owner})
         })
     })
 })

@@ -22,7 +22,7 @@ contract GivenToken is StandardToken {
 
     function withdraw(uint256 _value, address _from) public {
         Given given = Given(_from);
-        given.withdraw(_value);
+        given.withdraw(msg.sender, _value);
         balances[msg.sender] = balances[msg.sender].add(_value);
         balances[_from] = balances[_from].sub(_value);
     }
