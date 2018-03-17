@@ -34,6 +34,7 @@ class ApplyPage extends Component {
     this.handleChangeGentle = this.handleChangeGentle.bind(this)
     this.handleChangePhone = this.handleChangePhone.bind(this)
     this.handleChangeReason = this.handleChangeReason.bind(this)
+    this.handleChangeHospitalAddress = this.handleChangeHospitalAddress.bind(this)
 
     this.state = {
       name: '',
@@ -45,6 +46,7 @@ class ApplyPage extends Component {
         city: undefined,
         hospital: undefined
       },
+      hospitalAddress: '',
       reason: ''
     }
   }
@@ -181,9 +183,23 @@ class ApplyPage extends Component {
     })
   }
 
+  handleChangeHospitalAddress(event, value) {
+    this.setState({
+      ...this.state,
+      hospitalAddress: value
+    })
+  }
+
   submitApply() {
-    console.log(this.contracts.Given)
-    this.contracts.Given.methods.confirmed().send()
+    const ownerName = this.state.name
+    const hospitalAddress = this.state.hospitalAddress
+    const donateMount = this.state.applyMoneyNum * 10
+    const promise = this.contracts.GivenFactory.methods.newGiven(ownerName, hospitalAddress, donateMount).call()
+    promise.then((result) => {
+      this.props.router.push('/detail?address=' + result)
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   render() {
@@ -230,9 +246,11 @@ class ApplyPage extends Component {
         {this.createSelectCitiesMenus(this.state.selectHospital.province)}
         {this.createSelectHospitalsMenus(this.state.selectHospital.city)}
         <TextField
-          name="hehe"
-          floatingLabelText="病例证明"
+          name="医院的数字地址"
+          floatingLabelText="医院的数字地址"
           fullWidth={true}
+          value={this.state.hospitalAddress}
+          onChange={this.handleChangeHospitalAddress}
         /> <br />
         <TextField
           name="reason"

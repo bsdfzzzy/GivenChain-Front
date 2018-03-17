@@ -15,7 +15,26 @@ class DetailPage extends Component {
 
     this.contracts = context.drizzle.contracts
 
-    this.state = {}
+    this.handleAddress = this.handleAddress.bind(this)
+
+    this.state = {
+      address: ''
+    }
+  }
+
+  handleAddress(event, value) {
+    this.setState({
+      ...this.state,
+      address: value
+    })
+  }
+
+  handleYesClick(event) {
+    
+  }
+
+  handleNoClick(event) {
+    
   }
 
   render() {
@@ -56,8 +75,15 @@ class DetailPage extends Component {
                 showExpandableButton={true}
               />
               <CardActions>
-                <FlatButton label="Yes" />
-                <FlatButton label="No" />
+                <TextField
+                  hintText="医生地址"
+                  style={{float: 'left', marginRight: '20px', marginLeft: '35px'}}
+                  underlineShow={false}
+                  value={this.state.address}
+                  onChange={this.handleAddress}
+                />
+                <FlatButton label="Yes" onClick={this.handleYesClick} />
+                <FlatButton label="No" onClick={this.handleNoClick} />
               </CardActions>
               <CardText expandable={true}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
