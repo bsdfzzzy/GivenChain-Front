@@ -1,5 +1,6 @@
 pragma solidity ^0.4.18;
 
+
 contract Given {
     string public ownerName = "";
     uint256 public fundingAmount;
@@ -13,7 +14,7 @@ contract Given {
         _;
     }
 
-   modifier inState(State _state) {
+    modifier inState(State _state) {
         require(state == _state);
         _;
     }
@@ -29,7 +30,7 @@ contract Given {
         state = State.Confirmed;
     }
 
-    function isAvaible() public constant returns(bool) {
+    function isAvaible() public view returns(bool) {
         return state == State.Confirmed;
     }
 }
