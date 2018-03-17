@@ -10,7 +10,6 @@ import { provinces, cities, hospitals } from '../../util/hospitals'
 
 import './apply.css'
 
-
 const applySelectHospital = {
   "width": "30%",
   "marginRight": "5%"
@@ -18,7 +17,7 @@ const applySelectHospital = {
 
 class ApplyPage extends Component {
 
-  constructor(props, context) {
+  constructor(props) {
     super(props)
 
     this.changeApplyMoneyNum = this.changeApplyMoneyNum.bind(this)
@@ -28,6 +27,7 @@ class ApplyPage extends Component {
     this.handleChangeSelectProvince = this.handleChangeSelectProvince.bind(this)
     this.handleChangeSelectCity = this.handleChangeSelectCity.bind(this)
     this.handleChangeSelectHospital = this.handleChangeSelectHospital.bind(this)
+    this.subminApply = this.subminApply.bind(this)
 
     this.state = {
       applyMoneyNum: 30,
@@ -144,7 +144,8 @@ class ApplyPage extends Component {
   }
 
   subminApply() {
-
+    const givenContract = this.props.Given
+    console.log(givenContract.ownerName)
   }
 
   render() {

@@ -18,6 +18,7 @@ import ApplyContainer from './pages/apply'
 import ComplexStorage from './../build/contracts/ComplexStorage.json'
 import SimpleStorage from './../build/contracts/SimpleStorage.json'
 import TutorialToken from './../build/contracts/TutorialToken.json'
+import Given from './../build/contracts/Given.json'
 
 // Redux Store
 import store from './store'
@@ -37,7 +38,8 @@ const options = {
   contracts: [
     ComplexStorage,
     SimpleStorage,
-    TutorialToken
+    TutorialToken,
+    Given
   ],
   events: {
     SimpleStorage: ['StorageSet']
@@ -45,8 +47,8 @@ const options = {
 }
 
 ReactDOM.render((
-    <MuiThemeProvider>
       <DrizzleProvider options={options}>
+        <MuiThemeProvider>
         <Provider store={store}>
           <LoadingContainer>
             <Router history={history}>
@@ -57,8 +59,8 @@ ReactDOM.render((
             </Router>
           </LoadingContainer>
         </Provider>
+        </MuiThemeProvider>
       </DrizzleProvider>
-    </MuiThemeProvider>
   ),
   document.getElementById('root')
 );

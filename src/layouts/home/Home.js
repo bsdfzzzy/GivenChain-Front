@@ -3,6 +3,11 @@ import { ContractData, ContractForm } from 'drizzle-react-components'
 import logo from '../../logo.png'
 
 class Home extends Component {
+
+  constructor(props, context) {
+    super(props)
+  }
+
   render() {
     return (
       <main className="container">
