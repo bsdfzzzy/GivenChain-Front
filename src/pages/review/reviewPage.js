@@ -21,15 +21,15 @@ class ReivewPage extends Component {
             I need to do something blablablablablabla.
           </CardText>
           <CardActions>
-            <FlatButton label="Approve" />
-            <FlatButton label="Reject" />
+            <FlatButton label="Approve" style={{color: "green"}}/>
+            <FlatButton label="Reject" style={{color: "red"}}/>
           </CardActions>
           <Divider/>
         </div>
       )
     });
     return (
-      <div>
+      <div className="container">
         <h3>请求审核</h3>
         <Card>
           {renderReviews}
