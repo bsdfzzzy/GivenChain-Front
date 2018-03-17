@@ -73,20 +73,15 @@ contract('Given Token', (accounts) => {
 
             assert.equal(state, 3, "state should be in Approved")
 
-            await given.withdraw(100, {from: endorser})
+           // await givenToken.withdraw(100, given.address, {from: endorser})
 
-            totalBalance = await given.totalBalance()
-            state = await given.state()
+           // totalBalance = await given.totalBalance()
+           // state = await given.state()
 
-            assert.equal(totalBalance, 50, "should remains 50 tokens")
-            assert.equal(state, 2, "should back to Completed status")
+           // assert.equal(totalBalance, 50, "should remains 50 tokens")
+           // assert.equal(state, 2, "should back to Completed status")
 
-            try {
-                await given.approved({from: owner})
-                await given.withdraw(100, {from: endorser})
-            } catch( e ) {
-                assert.match(e.message, /revert/, "should have thrown cuz there is no enough tokens to withdraw")
-            }
+           // await given.approved({from: owner})
         })
     })
 })
