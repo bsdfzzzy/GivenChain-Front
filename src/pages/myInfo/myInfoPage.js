@@ -1,16 +1,7 @@
 import React from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardText} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
-
-const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400,
-  },
-};
 
 export default class MyInfo extends React.Component {
 

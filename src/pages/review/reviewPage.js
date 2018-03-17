@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react'
-import { ContractData, ContractForm } from 'drizzle-react-components'
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';
