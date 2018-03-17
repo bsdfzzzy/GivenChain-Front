@@ -1,19 +1,71 @@
 import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
-import RaisedButton from 'material-ui/RaisedButton'
-import Slider from 'material-ui/Slider'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import AppBar from 'material-ui/AppBar'
+import {GridList, GridTile} from 'material-ui/GridList'
 import PropTypes from 'prop-types'
-
-import { provinces, cities, hospitals } from '../../util/hospitals'
+import Paper from 'material-ui/Paper'
+import Avatar from 'material-ui/Avatar'
+import LinearProgress from 'material-ui/LinearProgress'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentSend from 'material-ui/svg-icons/content/forward'
 
 import './projects.css'
 
-const applySelectHospital = {
-  "width": "30%",
-  "marginRight": "5%"
+const styles = {
+  gridList: {
+    width: "100%",
+    overflowY: 'auto',
+  },
+  projectsListItem: {
+    height: '83%',
+    width: '230px',
+    margin: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+    boxSizing: 'content-box',
+  },
+  projectListHeaderAvatar: {
+    float: 'left',
+    marginRight: '10px'
+  },
+  projectsListContentButton: {
+    position: 'absolute',
+    right: '35px',
+    bottom: '15px'
+  }
 }
+
+const data = [{
+  name: '欧阳乐乐',
+  phone: '13800000000',
+  avatar: '',
+  progress: 30,
+  reason: '感染初期，HIV大量复制，产生病毒血症，并可出现衣壳抗原p24的表达，临床表现为急性HIV感染症状。由于HIV的细胞内大量复制，导致CD4+淋巴细胞损伤、死亡，CD4+T细胞明显减少。然而在机体的免疫作用下，CD8+CTL活化，杀伤HIV感染细胞，同时产生抗HIV抗体，病毒血症很快被清除，CD4+淋巴细胞数量回升。'
+}, {
+  name: '小倩',
+  phone: '13700000000',
+  avatar: '',
+  progress: 60,
+  reason: 'HIV侵入CD4+淋巴细胞后，在病毒逆转录酶的作用下，合成DNA，并整合到宿主细胞的染色体，整合的病毒DNA即可在细胞内复制、形成完整的病毒体释放出细胞外，细胞死亡，感染新的细胞，也可呈潜伏感染状态，随细胞分裂而进入子代细胞。'
+}, {
+  name: '管管',
+  phone: '13700000000',
+  avatar: '',
+  progress: 50,
+  reason: 'HIV侵入CD4+淋巴细胞后，在病毒逆转录酶的作用下，合成DNA，并整合到宿主细胞的染色体，整合的病毒DNA即可在细胞内复制、形成完整的病毒体释放出细胞外，细胞死亡，感染新的细胞，也可呈潜伏感染状态，随细胞分裂而进入子代细胞。'
+}, {
+  name: '小倩',
+  phone: '13700000000',
+  avatar: '',
+  progress: 90,
+  reason: 'HIV侵入CD4+淋巴细胞后，在病毒逆转录酶的作用下，合成DNA，并整合到宿主细胞的染色体，整合的病毒DNA即可在细胞内复制、形成完整的病毒体释放出细胞外，细胞死亡，感染新的细胞，也可呈潜伏感染状态，随细胞分裂而进入子代细胞。'
+}, {
+  name: '小倩',
+  phone: '13700000000',
+  avatar: '',
+  progress: 100,
+  reason: 'HIV侵入CD4+淋巴细胞后，在病毒逆转录酶的作用下，合成DNA，并整合到宿主细胞的染色体，整合的病毒DNA即可在细胞内复制、形成完整的病毒体释放出细胞外，细胞死亡，感染新的细胞，也可呈潜伏感染状态，随细胞分裂而进入子代细胞。'
+}]
 
 class ProjectsPage extends Component {
 
@@ -22,188 +74,49 @@ class ProjectsPage extends Component {
 
     this.contracts = context.drizzle.contracts
 
-    this.changeApplyMoneyNum = this.changeApplyMoneyNum.bind(this)
-    this.createSelectProvincesMenus = this.createSelectProvincesMenus.bind(this)
-    this.createSelectCitiesMenus = this.createSelectCitiesMenus.bind(this)
-    this.createSelectHospitalsMenus = this.createSelectHospitalsMenus.bind(this)
-    this.handleChangeSelectProvince = this.handleChangeSelectProvince.bind(this)
-    this.handleChangeSelectCity = this.handleChangeSelectCity.bind(this)
-    this.handleChangeSelectHospital = this.handleChangeSelectHospital.bind(this)
-    this.submitApply = this.submitApply.bind(this)
-
     this.state = {
-      applyMoneyNum: 30,
-      selectHospital: {
-        province: undefined,
-        city: undefined,
-        hospital: undefined
-      }
+      projects: data
     }
-  }
-
-  changeApplyMoneyNum (event, value) {
-    this.setState({
-      ...this.state,
-      applyMoneyNum: value
-    })
-  }
-
-  createSelectProvincesMenus() {
-    const provinceItems = provinces.map((province, index) => {
-      return <MenuItem key={"province" + index} value={province.id} primaryText={province.name} />
-    })
-    return (
-      <SelectField
-        floatingLabelText="省份"
-        value={this.state.selectHospital.province}
-        onChange={this.handleChangeSelectProvince}
-        style={applySelectHospital}
-        autoWidth={true}
-      >
-        {provinceItems}
-      </SelectField>
-    )
-  }
-
-  createSelectCitiesMenus(provinceId) {
-    let cityItems, citys
-    if (provinceId) {
-      citys = cities.filter(city => {
-        return city.provinceId === provinceId
-      })
-    } else {
-      citys = cities
-    }
-    cityItems = citys.map((city, index) => {
-      return <MenuItem key={"city" + index} value={city.id} primaryText={city.name} />
-    })
-    return (
-      <SelectField
-        floatingLabelText="城市"
-        value={this.state.selectHospital.city}
-        onChange={this.handleChangeSelectCity}
-        style={applySelectHospital}
-        autoWidth={true}
-      >
-        {cityItems}
-      </SelectField>
-    )
-  }
-
-  createSelectHospitalsMenus(cityId) {
-    let hospitalItems, hospitals_
-    if (cityId) {
-      hospitals_ = hospitals.filter(hospital => {
-        return hospital.cityId === cityId
-      })
-    } else {
-      hospitals_ = hospitals
-    }
-    hospitalItems = hospitals_.map((hospital, index) => {
-      return <MenuItem key={"hospital" + index} value={hospital.id} primaryText={hospital.name} />
-    })
-    return (
-      <SelectField
-        floatingLabelText="医院"
-        value={this.state.selectHospital.hospital}
-        onChange={this.handleChangeSelectHospital}
-        style={{width: "30%"}}
-        autoWidth={true}
-      >
-        {hospitalItems}
-      </SelectField>
-    )
-  }
-  
-  handleChangeSelectProvince(event, index, value) {
-    this.setState({
-      ...this.state,
-      selectHospital: {
-        ...this.state.selectHospital,
-        province: value
-      }
-    })
-  }
-
-  handleChangeSelectCity(event, index, value) {
-    this.setState({
-      ...this.state,
-      selectHospital: {
-        ...this.state.selectHospital,
-        city: value
-      }
-    })
-  }
-
-  handleChangeSelectHospital(event, index, value) {
-    this.setState({
-      ...this.state,
-      selectHospital: {
-        ...this.state.selectHospital,
-        hospital: value
-      }
-    })
-  }
-
-  submitApply() {
-    this.contracts.Given.methods.confirmed().send()
   }
 
   render() {
     return (
       <main className="projects-container">
-        <h2>申请详情</h2>
-        <TextField
-          hintText="Hint Text"
-          name="name"
-          floatingLabelText="姓名"
-          fullWidth={true}
-        /> <br />
-        <TextField
-          hintText="Hint Text"
-          name="mobile"
-          floatingLabelText="联系电话"
-          fullWidth={true}
-        /> <br />
-        <TextField
-          hintText="Hint Text"
-          name="gentle"
-          floatingLabelText="性别"
-          fullWidth={true}
-        /> <br /><br />
-        <label className="apply-field-label">申请金额 {this.state.applyMoneyNum} 万元</label>
-        <Slider
-          step={10}
-          value={this.state.applyMoneyNum}
-          min={0}
-          max={100}
-          className="apply-slider"
-          sliderStyle={{
-            "marginTop": "10px",
-            "marginBottom": "0"
-          }}
-          onChange={this.changeApplyMoneyNum}
-        />
-        <br />
-        <label className="apply-field-label">执行医院</label><br />
-        {this.createSelectProvincesMenus()}
-        {this.createSelectCitiesMenus(this.state.selectHospital.province)}
-        {this.createSelectHospitalsMenus(this.state.selectHospital.city)}
-        <TextField
-          hintText="Hint Text"
-          name="hehe"
-          floatingLabelText="病例证明"
-          fullWidth={true}
-        /> <br />
-        <TextField
-          hintText="Hint Text"
-          name="reason"
-          floatingLabelText="申请原因"
-          fullWidth={true}
-          rows={3}
-          multiLine={true}
-        />
-        <RaisedButton label="提交申请" primary={true} className="apply-submit-button" onClick={this.submitApply} />
+        <h2>捐献项目</h2>
+        <AppBar
+          style={{"backgroundColor": "rgba(240,240,240,0.6)"}}
+          showMenuIconButton={false}
+        >
+          <TextField
+            className="projects-bar-search-content"
+            hintText="查找救助人名字或者捐助项目的名称"
+            fullWidth={true}
+          />
+        </AppBar>
+        <GridList
+          cellHeight={310}
+          style={styles.gridList}
+          cols={3}
+        >
+          {this.state.projects.map((person, index) => (
+            <GridTile key={index}>
+              <Paper style={styles.projectsListItem} zDepth={2}>
+                <div className="projects-list-header">
+                  <Avatar style={styles.projectListHeaderAvatar} />
+                  <span className='projects-list-header-name'>{person.name}</span>
+                  <span className='projects-list-header-phone'>{person.phone}</span>
+                </div>
+                <LinearProgress mode="determinate" value={person.progress} style={{width: '90%', margin: 'auto'}} />
+                <p className='projects-list-item-content'>
+                  {person.reason}
+                </p>
+                <FloatingActionButton mini={true} secondary={true} style={styles.projectsListContentButton}>
+                  <ContentSend />
+                </FloatingActionButton>
+              </Paper>
+            </GridTile>
+          ))}
+        </GridList>
       </main>
     )
   }

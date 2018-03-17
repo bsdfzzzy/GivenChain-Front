@@ -1,0 +1,39 @@
+.projects-container {
+  text-align: center;
+  margin: auto;
+  width: 800px;
+}
+
+.projects-bar-search-content {
+  margin-top: 7px;
+}
+
+.projects-list-header {
+  padding: 10px 20px;
+  font-size: 13px;
+  color: #aaa;
+  font-weight: 100;
+  text-align: left;
+}
+
+.projects-list-header-name {
+  display: block;
+  margin-top: 2px;
+}
+
+.projects-list-header-phone {
+  display: block;
+  margin-top: 6px;
+}
+
+.projects-list-item-content {
+  width: 80%;
+  height: 160px;
+  margin: auto;
+  text-align: left;
+  word-break: break-all;
+  overflow: hidden;
+  margin-top: 10px;
+  color: #666;
+  font-size: 14px;
+}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { ContractData, ContractForm } from 'drizzle-react-components'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import Slider from 'material-ui/Slider'

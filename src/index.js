@@ -16,6 +16,7 @@ import LoadingContainer from './layouts/loading/LoadingContainer'
 import ApplyContainer from './pages/apply'
 import ReviewContainer from './pages/review'
 import MyInfoContainer from './pages/myInfo'
+import ProjectsContainer from './pages/projects'
 
 // Contracts
 import ComplexStorage from './../build/contracts/ComplexStorage.json'
@@ -72,6 +73,7 @@ ReactDOM.render((
                 <Route path="apply" component={ApplyContainer} />
                 <Route path="review" component={ReviewContainer}/>
                 <Route path="myInfo" component={MyInfoContainer}/>
+                <Route path="projects" component={ProjectsContainer} />
               </Route>
             </Router>
           </LoadingContainer>
