@@ -15,10 +15,12 @@ contract('Given Token', (accounts) => {
     describe("Crowdfund", () => {
         let givenToken 
         let given
+        let owner = accounts[3]
 
         beforeEach(async () => {
             givenToken = await GivenToken.deployed()
-            given = await Given.new("PoorGuy", endorser, 150)
+            given = await Given.new("PoorGuy", endorser, 150, {from: owner})
+            await given.confirmed({from: endorser})
         })
 
         it("should have initial tokens", async () => {
@@ -47,6 +49,44 @@ contract('Given Token', (accounts) => {
             let totalBalance = await given.totalBalance()
 
             assert.equal(totalBalance, 150, "total balance should be 150")
+        })
+
+        it("should be able to complete crowdfund after fundingAmout satisfied", async () => {
+            // funding amout is 150 tokens here.
+            await givenToken.crowdfund(151, given.address, {from: crowdfund})
+            let totalBalance = await given.totalBalance()
+            
+            assert.equal(totalBalance, 151, "total balance should be 151")
+            let isCompleted = await given.state()
+
+            assert.equal(isCompleted, 2, "crowdfund is completed")
+        })
+
+        it("should be able to withdraw token from given crowdfund after owner approve", async () => {
+            await givenToken.crowdfund(150, given.address, {from: crowdfund})
+            let totalBalance = await given.totalBalance()
+            
+            assert.equal(totalBalance, 150, "total balance should be 100")
+            await given.approved({from: owner})
+
+            let state = await given.state()
+
+            assert.equal(state, 3, "state should be in Approved")
+
+            await given.withdraw(100, {from: endorser})
+
+            totalBalance = await given.totalBalance()
+            state = await given.state()
+
+            assert.equal(totalBalance, 50, "should remains 50 tokens")
+            assert.equal(state, 2, "should back to Completed status")
+
+            try {
+                await given.approved({from: owner})
+                await given.withdraw(100, {from: endorser})
+            } catch( e ) {
+                assert.match(e.message, /revert/, "should have thrown cuz there is no enough tokens to withdraw")
+            }
         })
     })
 })
