@@ -1,7 +1,8 @@
 import React from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import {Card, CardText} from 'material-ui/Card';
+import {Card, CardText, CardHeader, CardActions} from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
+import FlatButton from 'material-ui/FlatButton';
 
 export default class MyInfo extends React.Component {
 
@@ -29,6 +30,31 @@ export default class MyInfo extends React.Component {
     )
   }
 
+  review() {
+    const reviews = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2];
+    const renderReviews = reviews.map(function (review, i) {
+      return (
+        <div key={i}>
+          <CardHeader
+            title="Review"
+            actAsExpander={false}
+            showExpandableButton={true}
+          />
+          <CardText expandable={true}>
+            I need to do something blablablablablabla.
+          </CardText>
+          <CardActions>
+            <FlatButton label="Approve" style={{color: "green"}}/>
+            <FlatButton label="Reject" style={{color: "red"}}/>
+          </CardActions>
+          <Divider/>
+        </div>
+      )
+    });
+
+    return renderReviews
+  }
+
   render() {
     const infos = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2];
     const renderInfos = infos.map((info, i) => {
@@ -54,7 +80,7 @@ export default class MyInfo extends React.Component {
         </Tab>
         <Tab label="审查" value="c">
           <Card>
-            {renderInfos}
+            {this.review()}
           </Card>
         </Tab>
       </Tabs>

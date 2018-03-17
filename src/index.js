@@ -14,7 +14,6 @@ import LoadingContainer from './layouts/loading/LoadingContainer'
 
 // Pages
 import ApplyContainer from './pages/apply'
-import ReviewContainer from './pages/review'
 import MyInfoContainer from './pages/myInfo'
 import ProjectsContainer from './pages/projects'
 import DetailContainer from './pages/detail'
@@ -72,7 +71,6 @@ ReactDOM.render((
                 <IndexRoute component={HomeContainer} />
                 {/*<IndexRoute component={MyInfoContainer} />*/}
                 <Route path="apply" component={ApplyContainer} />
-                <Route path="review" component={ReviewContainer}/>
                 <Route path="myInfo" component={MyInfoContainer}/>
                 <Route path="projects" component={ProjectsContainer} />
                 <Route path="detail" component={DetailContainer} />
