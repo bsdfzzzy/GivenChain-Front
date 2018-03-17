@@ -1,0 +1,17 @@
+.left{
+    float: left;
+    width: 160px;
+    background-color: lightgray;
+    padding: 30px;
+}
+.right{
+    overflow: hidden;
+    padding: 30px;
+}
+.floatContainer{
+    margin-left: 30px;
+    margin-right: 30px;
+    height:100%;
+    overflow:hidden;
+    box-shadow: 3px 3px 6px 3px lightgray;
+}
