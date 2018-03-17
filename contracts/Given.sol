@@ -41,4 +41,7 @@ contract Given {
         participantBalances[_from] = participantBalances[_from].add(_value);
     }
 
+    function balanceOf(address _who) public view returns(uint256) {
+        return participantBalances[_who];
+    }
 }
