@@ -1,0 +1,17 @@
+.apply-submit-button {
+  width: 200px;
+  margin-top: 20px;
+}
+
+.apply-field-label {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.apply-slider > div {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.apply-select {
+  height: 50px;
+}

@@ -1,50 +1,207 @@
 import React, { Component } from 'react'
 import { ContractData, ContractForm } from 'drizzle-react-components'
-import logo from '../../logo.png'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
+import Slider from 'material-ui/Slider'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
+
+import { provinces, cities, hospitals } from '../../util/hospitals'
+
+import './apply.css'
+
+
+const applySelectHospital = {
+  "width": "30%",
+  "marginRight": "5%"
+}
 
 class ApplyPage extends Component {
+
+  constructor(props, context) {
+    super(props)
+
+    this.changeApplyMoneyNum = this.changeApplyMoneyNum.bind(this)
+    this.createSelectProvincesMenus = this.createSelectProvincesMenus.bind(this)
+    this.createSelectCitiesMenus = this.createSelectCitiesMenus.bind(this)
+    this.createSelectHospitalsMenus = this.createSelectHospitalsMenus.bind(this)
+    this.handleChangeSelectProvince = this.handleChangeSelectProvince.bind(this)
+    this.handleChangeSelectCity = this.handleChangeSelectCity.bind(this)
+    this.handleChangeSelectHospital = this.handleChangeSelectHospital.bind(this)
+
+    this.state = {
+      applyMoneyNum: 30,
+      selectHospital: {
+        province: undefined,
+        city: undefined,
+        hospital: undefined
+      }
+    }
+  }
+
+  changeApplyMoneyNum (event, value) {
+    this.setState({
+      ...this.state,
+      applyMoneyNum: value
+    })
+  }
+
+  createSelectProvincesMenus() {
+    const provinceItems = provinces.map((province, index) => {
+      return <MenuItem key={"province" + index} value={province.id} primaryText={province.name} />
+    })
+    return (
+      <SelectField
+        floatingLabelText="省份"
+        value={this.state.selectHospital.province}
+        onChange={this.handleChangeSelectProvince}
+        style={applySelectHospital}
+        autoWidth={true}
+      >
+        {provinceItems}
+      </SelectField>
+    )
+  }
+
+  createSelectCitiesMenus(provinceId) {
+    let cityItems, citys
+    if (provinceId) {
+      citys = cities.filter(city => {
+        return city.provinceId === provinceId
+      })
+    } else {
+      citys = cities
+    }
+    cityItems = citys.map((city, index) => {
+      return <MenuItem key={"city" + index} value={city.id} primaryText={city.name} />
+    })
+    return (
+      <SelectField
+        floatingLabelText="城市"
+        value={this.state.selectHospital.city}
+        onChange={this.handleChangeSelectCity}
+        style={applySelectHospital}
+        autoWidth={true}
+      >
+        {cityItems}
+      </SelectField>
+    )
+  }
+
+  createSelectHospitalsMenus(cityId) {
+    let hospitalItems, hospitals_
+    if (cityId) {
+      hospitals_ = hospitals.filter(hospital => {
+        return hospital.cityId === cityId
+      })
+    } else {
+      hospitals_ = hospitals
+    }
+    hospitalItems = hospitals_.map((hospital, index) => {
+      return <MenuItem key={"hospital" + index} value={hospital.id} primaryText={hospital.name} />
+    })
+    return (
+      <SelectField
+        floatingLabelText="医院"
+        value={this.state.selectHospital.hospital}
+        onChange={this.handleChangeSelectHospital}
+        style={{width: "30%"}}
+        autoWidth={true}
+      >
+        {hospitalItems}
+      </SelectField>
+    )
+  }
+  
+  handleChangeSelectProvince(event, index, value) {
+    this.setState({
+      ...this.state,
+      selectHospital: {
+        ...this.state.selectHospital,
+        province: value
+      }
+    })
+  }
+
+  handleChangeSelectCity(event, index, value) {
+    this.setState({
+      ...this.state,
+      selectHospital: {
+        ...this.state.selectHospital,
+        city: value
+      }
+    })
+  }
+
+  handleChangeSelectHospital(event, index, value) {
+    this.setState({
+      ...this.state,
+      selectHospital: {
+        ...this.state.selectHospital,
+        hospital: value
+      }
+    })
+  }
+
+  subminApply() {
+
+  }
+
   render() {
     return (
       <main className="container">
-        <div className="pure-g">
-          <div className="pure-u-1-1 header">
-            <img src={logo} alt="drizzle-logo" />
-            <h1>Drizzle Examples</h1>
-            <p>Examples of how to get started with Drizzle in various situations.</p>
-
-            <br/><br/>
-          </div>
-        
-          <div className="pure-u-1-1">
-            <h2>SimpleStorage</h2>
-            <p>This shows a simple ContractData component with no arguments, along with a form to set its value.</p>
-            <p><strong>Stored Value</strong>: <ContractData contract="SimpleStorage" method="storedData" /></p>
-            <ContractForm contract="SimpleStorage" method="set" />
-
-            <br/><br/>
-          </div>
-
-          <div className="pure-u-1-1">
-            <h2>TutorialToken</h2>
-            <p>Here we have a form with custom, friendly labels. Also note the token symbol will not display a loading indicator. We've suppressed it with the <code>hideIndicator</code> prop because we know this variable is constant.</p>
-            <p><strong>Total Supply</strong>: <ContractData contract="TutorialToken" method="totalSupply" methodArgs={[{from: this.props.accounts[0]}]} /> <ContractData contract="TutorialToken" method="symbol" hideIndicator /></p>
-            <p><strong>My Balance</strong>: <ContractData contract="TutorialToken" method="balanceOf" methodArgs={[this.props.accounts[0]]} /></p>
-            <h3>Send Tokens</h3>
-            <ContractForm contract="TutorialToken" method="transfer" labels={['To Address', 'Amount to Send']} />
-
-            <br/><br/>
-          </div>
-
-          <div className="pure-u-1-1">
-            <h2>ComplexStorage</h2>
-            <p>Finally this contract shows data types with additional considerations. Note in the code the strings below are converted from bytes to UTF-8 strings and the device data struct is iterated as a list.</p>
-            <p><strong>String 1</strong>: <ContractData contract="ComplexStorage" method="string1" toUtf8 /></p>
-            <p><strong>String 2</strong>: <ContractData contract="ComplexStorage" method="string2" toUtf8 /></p>
-            <strong>Single Device Data</strong>: <ContractData contract="ComplexStorage" method="singleDD" />
-
-            <br/><br/>
-          </div>
-        </div>
+        <h2>申请详情</h2>
+        <TextField
+          hintText="Hint Text"
+          name="name"
+          floatingLabelText="姓名"
+          fullWidth={true}
+        /> <br />
+        <TextField
+          hintText="Hint Text"
+          name="mobile"
+          floatingLabelText="联系电话"
+          fullWidth={true}
+        /> <br />
+        <TextField
+          hintText="Hint Text"
+          name="gentle"
+          floatingLabelText="性别"
+          fullWidth={true}
+        /> <br /><br />
+        <label className="apply-field-label">申请金额 {this.state.applyMoneyNum} 万元</label>
+        <Slider
+          step={10}
+          value={this.state.applyMoneyNum}
+          min={0}
+          max={100}
+          className="apply-slider"
+          sliderStyle={{
+            "marginTop": "10px",
+            "marginBottom": "0"
+          }}
+          onChange={this.changeApplyMoneyNum}
+        />
+        <br />
+        <label className="apply-field-label">执行医院</label><br />
+        {this.createSelectProvincesMenus()}
+        {this.createSelectCitiesMenus(this.state.selectHospital.province)}
+        {this.createSelectHospitalsMenus(this.state.selectHospital.city)}
+        <TextField
+          hintText="Hint Text"
+          name="hehe"
+          floatingLabelText="病例证明"
+          fullWidth={true}
+        /> <br />
+        <TextField
+          hintText="Hint Text"
+          name="reason"
+          floatingLabelText="申请原因"
+          fullWidth={true}
+          rows={3}
+          multiLine={true}
+        />
+        <RaisedButton label="提交申请" primary={true} className="apply-submit-button" onClick={this.subminApply()} />
       </main>
     )
   }
