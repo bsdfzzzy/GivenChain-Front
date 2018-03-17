@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { DrizzleProvider } from 'drizzle-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 // Layouts
 import App from './App'
@@ -13,6 +14,8 @@ import LoadingContainer from './layouts/loading/LoadingContainer'
 
 // Pages
 import ApplyContainer from './pages/apply'
+import ReviewContainer from './pages/review'
+import MyInfoContainer from './pages/myInfo'
 
 // Contracts
 import ComplexStorage from './../build/contracts/ComplexStorage.json'
@@ -46,15 +49,29 @@ const options = {
   }
 }
 
+const muiTheme = getMuiTheme({
+  tabs: {
+    backgroundColor: 'clear',
+    textColor: 'black',
+    selectedTextColor: 'gray'
+  },
+  inkBar: {
+    backgroundColor: 'gray'
+  }
+})
+
 ReactDOM.render((
       <DrizzleProvider options={options}>
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={muiTheme}>
         <Provider store={store}>
           <LoadingContainer>
             <Router history={history}>
               <Route path="/" component={App}>
                 <IndexRoute component={HomeContainer} />
+                {/*<IndexRoute component={MyInfoContainer} />*/}
                 <Route path="apply" component={ApplyContainer} />
+                <Route path="review" component={ReviewContainer}/>
+                <Route path="myInfo" component={MyInfoContainer}/>
               </Route>
             </Router>
           </LoadingContainer>
