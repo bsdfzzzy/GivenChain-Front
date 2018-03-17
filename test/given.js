@@ -56,5 +56,21 @@ contract('Given chain', (accounts) => {
             assert.equal(state, 0, "crowdfunding is still in unconfirmed state")
         })
     })
+
+    describe("Platform", () => {
+        let given
+        beforeEach(async function() {
+            given = await Given.new("patient", endorser, 1)
+        })
+
+        it("if not real endorser should be not able to confirm", async () => {
+            await given.confirmed({from: endorser})
+
+            let isReadyToPublish = await given.isAvaible()
+
+            assert.equal(isReadyToPublish, true, "crowdfunding is ready to publish")
+        })
+    })
+
 })
 

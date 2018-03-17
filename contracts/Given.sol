@@ -13,6 +13,11 @@ contract Given {
         _;
     }
 
+   modifier inState(State _state) {
+        require(state == _state);
+        _;
+    }
+
     function Given(string _ownerName, address _endorser, uint256 _fundingAmount) public {
         ownerName = _ownerName;
         endorser = _endorser;
@@ -22,5 +27,9 @@ contract Given {
 
     function confirmed() public onlyEndorser {
         state = State.Confirmed;
+    }
+
+    function isAvaible() public constant returns(bool) {
+        return state == State.Confirmed;
     }
 }
