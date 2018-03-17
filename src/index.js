@@ -23,6 +23,8 @@ import ComplexStorage from './../build/contracts/ComplexStorage.json'
 import SimpleStorage from './../build/contracts/SimpleStorage.json'
 import TutorialToken from './../build/contracts/TutorialToken.json'
 import Given from './../build/contracts/Given.json'
+import GivenFactory from './../build/contracts/GivenFactory.json'
+import GivenToken from './../build/contracts/GivenToken.json'
 
 // Redux Store
 import store from './store'
@@ -43,7 +45,9 @@ const options = {
     ComplexStorage,
     SimpleStorage,
     TutorialToken,
-    Given
+    Given,
+    GivenFactory,
+    GivenToken
   ],
   events: {
     SimpleStorage: ['StorageSet']
